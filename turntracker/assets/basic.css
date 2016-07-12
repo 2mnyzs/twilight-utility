@@ -1,0 +1,146 @@
+body {
+    margin-top: 51px;
+    background-color: lightgrey;
+}
+.currentTurnCard{
+    display: inline-block;
+    border-radius: 18px;
+    padding: 5px;
+    border: 5px solid #4d1913;
+    text-align: center;
+    margin: 6%;
+    background-color: #757575;
+    color: lightgrey;
+}
+.actionCard{
+    text-align: center;
+    color: lightgrey;
+    padding: 5px;
+    height: 70px;
+    margin-bottom: 15px;
+    background-color: #150d0f;
+    border: 4px solid #4d1913;
+    border-radius: 18px;
+    cursor: pointer;
+}
+.raceCard{
+    text-align: center;
+    color: lightgrey;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 2px;
+    width: 150px;
+    background-color: #150d0f;
+    border-left: 4px solid #4d1913;
+    border-right: 4px solid #4d1913;
+}
+.raceCard-all{
+    display: inline-table;
+    cursor: pointer;
+    height: 200px;
+    border-radius: 18px;
+    margin: 10px;
+    border: 4px solid #4d1913;
+    background-color: #150d0f;
+}
+.raceCard-race{
+    display: inline-table;
+    cursor: pointer;
+    height: 200px;
+    border-radius: 18px;
+    margin: 10px;
+    border: 4px solid #4d1913;
+    background-color: #150d0f;
+}
+.raceCard-glue{
+    cursor: pointer;
+    display: inline-block;
+    margin: 10px;
+}
+.raceCard-top{
+    height: 55px;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    border-top: 4px solid #4d1913;
+}
+.raceCard-middle{
+    height: 75px;
+}
+.raceCard-bottom{
+    height: 100px;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+    border-bottom: 4px solid #4d1913;
+}
+.playerCard-top{
+    height: 60px;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    border-top: 4px solid #4d1913;
+}
+.playerCard-middle{
+    height: 130px;
+}
+.playerCard-bottom{
+    height: 40px;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+    border-bottom: 4px solid #4d1913;
+}
+
+@media screen and (max-width: 750px) {
+    .raceCard-middle{
+        display: none;
+    }
+}
+.stratCard{
+    text-align: center;
+    color: lightgrey;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 2px;
+    width: 150px;
+    background-color: #413B3D;
+}
+.stratCard-glue{
+    cursor: pointer;
+    display: inline-block;
+    margin: 10px;
+}
+.stratCard-top{
+    font-size: 14pt;
+    height: 40px;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    border: 5px solid;
+    padding: 2px 8px;
+}
+.stratCard-middle{
+    font-size: 11pt;
+    height: 115px;
+    border-left: 5px solid;
+    border-right: 5px solid;
+    border-color: #4d1913;
+}
+.stratCard-bottom{
+    font-size: 11pt;
+    height: 75px;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+    border: 5px solid;
+}
+.actionButton{
+    width: 100%;
+    border: 4px solid #4d1913;
+}
+.position-item{
+    cursor: pointer;
+}
+.color-bar{
+    width: 500px;
+    text-align: center;
+    height: 80px;
+    border: 4px solid #4d1913;
+    border-radius: 20px;
+    display: inline-table;
+}

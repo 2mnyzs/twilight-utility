@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="Grey Tech Team">
+
+		<title>TUC - Turn Tracker</title>
+        <link rel="shortcut icon" href="/assets/misc/images/favicon.png" type="image/png">
+
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel='stylesheet' href="assets/basic.css">
+	</head>
+	<body>
+		<header id='navbar_placeholder'></header>
+		<section class='row'>
+			<div style="text-align: center;" class='col-md-10 col-md-offset-1'>
+				<div id='main_display'>
+					<div id='pregame_display'>
+						<h3>Pre Game</h3>
+						<div id='race_display'></div>
+						<div id='color_display'></div>
+						<div id='name_display'>
+							<div class="col-sm-offset-4 col-sm-4" style="text-align: center;">
+						        <form id='name_form' class="form-horizontal">
+						            <label for="name_input">Player Name</label>
+						            <input id="name_input" class="form-control" type="text"><br>
+						            <button class="btn btn-primary" type="submit">Submit</button>
+						        </form>
+						    </div>
+						</div>
+						<div id='position_display'>
+							<div class="col-md-offset-4 col-md-4 col-sm-offset-2 col-sm-8" style="text-align: center;">
+								<h5>Please make sure the order is correct and matches the order in which you will select Strategy Cards(physical order). Click on players to move them.</h5>
+								<ul id='position_list' class='list-group'>
+								</ul>
+								<button id='position_button' class='btn btn-primary' type="submit">Next</button>
+							</div>
+						</div>
+					</div>
+					<div id='game_display'>
+						<h3>Current Round: <span id='current_round'>0</span></h3>
+						<div id='strategy_display'>
+							<div id='strat_players'>
+								<h5>Please select the speaker to begin the strategy phase.</h5>
+								<div id='strat_players_cards'></div>
+							</div>
+							<div style='display:none;' id='strat_cards'>
+								<h5><span id='strat_directions'></span>, please select your strategy card.</h5>
+								<div id='strat_cards_cards'></div>
+								<div class='clearfix'></div>
+								<div class='color-bar'></div>
+							</div>
+						</div>
+						<div id='action_display'>
+							<div class="col-md-offset-2 col-md-8" style="text-align: center;">
+								<h5>Current Player: <span id='action_player'></span></h5>
+								<div id='action_tactical' data-action='Tactical' class='actionCard col-sm-offset-1 col-sm-4'>Tactical</div>
+								<div id='action_transfer' data-action='Transfer' class='actionCard col-sm-offset-2 col-sm-4'>Transfer</div>
+								<div id='action_strategic' data-action='Strategic' class='actionCard col-sm-offset-1 col-sm-4'>Strategic</div>
+								<div id='action_pass' data-action='Pass' class='actionCard col-sm-offset-2 col-sm-4'>Pass</div>
+								<div class='clearfix'></div>
+								<div class='color-bar'></div>
+							</div>
+						</div>
+						<div id='status_display'>
+							<div class="col-md-offset-2 col-md-8" style="text-align: center;">
+								<h5>Current Player: <span id='status_player'></span></h5>
+						        <form id='point_form' class="form-horizontal">
+						            <label for="number_input">Points: </label>
+						            <input id="number_input" class="form-control" type="text"><br>
+						            <button id='status_button' class="btn btn-primary" type="submit">Submit</button>
+						        </form>
+								<div class='clearfix'></div>
+								<div class='color-bar'></div>
+							</div>
+						</div>
+					</div>
+					<div id='postgame_display'>
+						<h3>Post Game</h3>
+						<div class="btn-group" role="group" aria-label="...">
+							<button type="button" class="btn btn-default">Score Board</button>
+							<button type="button" class="btn btn-default">Strategy Cards</button>
+							<button type="button" class="btn btn-default">Actions</button>
+						</div>
+						<div id='points_section'>
+							<h4>Score Board</h4>
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Race</th>
+										<th>Name</th>
+										<th>Final Score</th>
+									</tr>
+								</thead>
+								<tbody id='score_table_body'>
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<footer>
+			<script src= "https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    		<script src= "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+			<script src= "assets/javascript/turntracker.js"></script>
+            <script src= "/assets/javascript/basic.js"></script> <!-- Login/Logout -->
+		</footer>
+	</body>
+</html>

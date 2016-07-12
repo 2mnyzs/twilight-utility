@@ -1,0 +1,82 @@
+[
+    {
+        "id":0,
+        "name":"Enviro Compensator",
+        "description":"+1 production capacity of your Space Docks",
+        "race__id":null,
+        "race_cost":0,
+        "color__id":0,
+        "pre_requisite_ids":[
+
+        ],
+        "post_requisite_ids":[
+
+        ],
+        "all_pre_requisites_req":null,
+        "expansion__id":null
+    },
+    {
+        "id":1,
+        "name":"TransFabrication",
+        "description":"May scuttle units at the start of the Produce Units step. Each non-fighter/non-ground force unit you scuttle will provide +1 trade good. Units scuttled may not be reproduced the same turn.",
+        "race__id":null,
+        "race_cost":0,
+        "color__id":0,
+        "pre_requisite_ids":[
+
+        ],
+        "post_requisite_ids":[
+
+        ],
+        "all_pre_requisites_req":null,
+        "expansion__id":null
+    },
+    {
+        "id":2,
+        "name":"Sarween Tools",
+        "description":"Whenever you produce units at any Space Dock, you now receive +1 resource with which to produce.",
+        "race__id":null,
+        "race_cost":0,
+        "color__id":0,
+        "pre_requisite_ids":[
+            0
+        ],
+        "post_requisite_ids":[
+
+        ],
+        "all_pre_requisites_req":false,
+        "expansion__id":null
+    },
+    {
+        "id":3,
+        "name":"Micro Technology",
+        "description":"When you receive Trade Goods from your trade agreements, you now receive +1 Trade Good for each active Trade Agreement.",
+        "race__id":null,
+        "race_cost":0,
+        "color__id":0,
+        "pre_requisite_ids":[
+            2,8
+        ],
+        "post_requisite_ids":[
+
+        ],
+        "all_pre_requisites_req":false,
+        "expansion__id":null
+    },
+    {
+        "id":4,
+        "name":"Integrated Economy",
+        "description":"When you receive Trade Goods from your trade agreements, you now receive +1 Trade Good for each active Trade Agreement.",
+        "race__id":null,
+        "race_cost":0,
+        "color__id":0,
+        "pre_requisite_ids":[
+            2,8
+        ],
+        "post_requisite_ids":[
+
+        ],
+        "all_pre_requisites_req":false,
+        "expansion__id":null
+    },
+]

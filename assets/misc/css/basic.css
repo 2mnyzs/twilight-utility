@@ -1,0 +1,79 @@
+body {
+    margin-top: 51px;
+    background-color: lavender;
+}
+.row{
+  margin-top: 15px;
+}
+.create-button{
+  margin-top:10%;
+}
+.form-control {
+    display: inline-block;
+    width:60%;
+}
+.col{
+  margin-left: -15px;
+}
+
+#houseDescription:focus{
+  width: 100%;
+}
+#houseTitle:focus{
+  width: 100%;
+}
+#houseTags:focus{
+  width: 100%;
+}
+.hideOverflow
+{
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    width:100%;
+    display:block;
+}
+
+.title{
+  font-size: Large;
+  font-weight: Bold;
+}
+.intro-box-0 {
+    margin: 0 -35px;
+    border-top-style: solid;
+    border-top-width: 5px;
+    border-top-color: #181818;
+    border-bottom-style: solid;
+    border-bottom-width: 5px;
+    border-bottom-color: #181818;
+}
+
+.intro-box-1 {
+    background-color: white;
+    font-size: medium;
+    height: 150px;
+    opacity: .83;
+    padding: 5px;
+    color: black;
+    border-top-style: solid;
+    border-top-width: 2px;
+    border-top-color: white;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-bottom-color: white;
+}
+
+.btn-label {
+  position: relative;left: -12px;
+  display: inline-block;
+  padding: 6px 12px;
+  background: rgba(0,0,0,0.15);
+  border-radius: 3px 0 0 3px;
+}
+.btn-labeled {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.btn {
+  margin-bottom:3px;
+}

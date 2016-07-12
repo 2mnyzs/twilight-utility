@@ -1,0 +1,26 @@
+[
+    {
+        "id":"0",
+        "name":"Yellow",
+        "hex":"#FFFF00",
+        "description":"Economy"
+    },
+    {
+        "id":"1",
+        "name":"Green",
+        "hex":"#00FF00",
+        "description":"Utility"
+    },
+    {
+        "id":"2",
+        "name":"Blue",
+        "hex":"#0000FF",
+        "description":"Movement"
+    },
+    {
+        "id":"3",
+        "name":"Red",
+        "hex":"#FF0000",
+        "description":"Combat"
+    }
+]

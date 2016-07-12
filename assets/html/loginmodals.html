@@ -1,0 +1,47 @@
+<div class="modal fade" id='login_modal' tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Log In</h4>
+      </div>
+      <div class="modal-body">
+            <form id='login_form'>
+                <div class='form-group'>
+                    <label for="login_username">Username</label>
+                    <input type='username' class='form-control' id='login_username' placeholder="Username">
+                    <span style="display:none;" id="login_username_help" class="help-block">Username already exists.</span>
+                </div>
+                <div class='form-group'>
+                    <label for="login_password">Password</label>
+                    <input type='password' class='form-control' id='login_password' placeholder="Password">
+                    <span style="display:none;" id="login_password_help" class="help-block">Password must be at least 8 characters long.</span>
+                </div>
+                <span style="display:none;" id="login_combination_help" class="help-block">Incorrect Username and/or Password.</span>
+            </form>
+      </div>
+      <div class="modal-footer">
+        <button id='login_signup' type="submit" class="btn btn-primary">Signup</button>
+        <button id='login_login' type="submit" class="btn btn-primary">Login</button>
+        <button type="button" data-dismiss="modal"  class="btn btn-default">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal fade" id='logout_modal' tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Log Out</h4>
+      </div>
+      <div class="modal-body">
+          <h4>Would you like to logout?</h4>
+      </div>
+      <div class="modal-footer">
+        <button id='logout_logout' type="submit" class="btn btn-primary">Yes</button>
+        <button type="button" data-dismiss="modal"  class="btn btn-default">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
