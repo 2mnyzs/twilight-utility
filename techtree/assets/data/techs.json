@@ -66,12 +66,44 @@
     {
         "id":4,
         "name":"Integrated Economy",
-        "description":"When you receive Trade Goods from your trade agreements, you now receive +1 Trade Good for each active Trade Agreement.",
+        "description":"When producing units, place them in any activated adj. system that is empty or friendly. Place PDS and Ground Forces on any friendly planet in range.",
         "race__id":null,
         "race_cost":0,
         "color__id":0,
         "pre_requisite_ids":[
-            2,8
+            3,9
+        ],
+        "post_requisite_ids":[
+
+        ],
+        "all_pre_requisites_req":true,
+        "expansion__id":null
+    },
+    {
+        "id":5,
+        "name":"Nano Technology",
+        "description":"Dreadnaughts and War Suns can't be targeted by Action Cards. When you claim a planet, you gain it refreshed.",
+        "race__id":null,
+        "race_cost":0,
+        "color__id":0,
+        "pre_requisite_ids":[
+            2
+        ],
+        "post_requisite_ids":[
+
+        ],
+        "all_pre_requisites_req":false,
+        "expansion__id":1
+    },
+    {
+        "id":6,
+        "name":"Graviton Laser System",
+        "description":"PDS get one re-roll for each missed combat roll.",
+        "race__id":null,
+        "race_cost":0,
+        "color__id":0,
+        "pre_requisite_ids":[
+            999
         ],
         "post_requisite_ids":[
 
@@ -79,4 +111,100 @@
         "all_pre_requisites_req":false,
         "expansion__id":null
     },
+    {
+        "id":7,
+        "name":"Transit Diodes",
+        "description":"As an action, you may spend 1 Command Counter from your Strategic Allocation to immediately move up to 4 Ground Forces to a planet you control.",
+        "race__id":null,
+        "race_cost":0,
+        "color__id":0,
+        "pre_requisite_ids":[
+            999
+        ],
+        "post_requisite_ids":[
+
+        ],
+        "all_pre_requisites_req":false,
+        "expansion__id":null
+    },
+    {
+        "id":8,
+        "name":"Stasis Capsules",
+        "description":"Cruisers and Dreadnaughts can carry one Ground Force.",
+        "race__id":null,
+        "race_cost":0,
+        "color__id":1,
+        "pre_requisite_ids":[
+            0
+        ],
+        "post_requisite_ids":[
+
+        ],
+        "all_pre_requisites_req":false,
+        "expansion__id":null
+    },
+    {
+        "id":9,
+        "name":"Cybernetics",
+        "description":"Fighters receive +1 on all combat rolls.",
+        "race__id":null,
+        "race_cost":0,
+        "color__id":1,
+        "pre_requisite_ids":[
+            8,999
+        ],
+        "post_requisite_ids":[
+
+        ],
+        "all_pre_requisites_req":false,
+        "expansion__id":null
+    },
+    {
+        "id":10,
+        "name":"Neural Motivator",
+        "description":"Draw one extra Action Card during each Status Phase.",
+        "race__id":null,
+        "race_cost":0,
+        "color__id":1,
+        "pre_requisite_ids":[
+            3,8
+        ],
+        "post_requisite_ids":[
+
+        ],
+        "all_pre_requisites_req":false,
+        "expansion__id":null
+    },
+    {
+        "id":11,
+        "name":"Neutral Computing",
+        "description":"Your cost to purchase new Technologies is reduced by 2.",
+        "race__id":null,
+        "race_cost":0,
+        "color__id":1,
+        "pre_requisite_ids":[
+            10
+        ],
+        "post_requisite_ids":[
+
+        ],
+        "all_pre_requisites_req":false,
+        "expansion__id":0
+    },
+    {
+        "id":12,
+        "name":"Gen Synthesis",
+        "description":"Ground Forces receive +1 during Invasion Combat. When destroyed, roll +5 to return to home system.",
+        "race__id":null,
+        "race_cost":0,
+        "color__id":1,
+        "pre_requisite_ids":[
+            9
+        ],
+        "post_requisite_ids":[
+
+        ],
+        "all_pre_requisites_req":false,
+        "expansion__id":null
+    }
 ]
