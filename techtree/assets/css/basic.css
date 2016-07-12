@@ -2,3 +2,30 @@ body {
     margin-top: 51px;
     background-color: lavender;
 }
+.tech-color-yellow{
+	border: 2.5px solid #FFFF00 !important;
+	background-color: #FFFF00;
+}
+.tech-color-green{
+	border: 2.5px solid #00FF00 !important;
+	background-color: #00FF00;
+}
+.tech-color-blue{
+	border: 2.5px solid #0000FF !important;
+	background-color: #0000FF;
+}
+.tech-color-red{
+	border: 2.5px solid #FF0000 !important;
+	background-color: #FF0000;
+}
+.panel{
+	margin-bottom: 1%;
+}
+.panel-title{
+}
+.panel-heading{
+	cursor: pointer;
+}
+.panel-body{
+	display: none;
+}
