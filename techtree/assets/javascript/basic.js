@@ -10,9 +10,10 @@ $(function(){
 
 function createMainDisplay(colors,techs,races,expansions){
 	var mobile_view = $(window).width() < 992 ? true : false;
+    mobile_view = true; //please don't forget to kill me
 
 	if(mobile_view){
-		var view_state = 'list';
+		var view_state = 'list'; //maybe kill me too
 		for(var index in techs.techs){
 			var tech = techs.techs[index];
 			var color = tech.getColor(colors);
@@ -147,7 +148,7 @@ function initializeData(){
 					return techsOfColor;
 				}
 			}
-		};      
+		};
 	}
 	var d1_colors = $.Deferred(),
 		d2_techs = $.Deferred(),

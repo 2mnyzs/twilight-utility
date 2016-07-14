@@ -16,9 +16,28 @@
 	<body>
 		<header id='navbar_placeholder'></header>
 		<section class='container text-center'>
-			<div class="view-state mobile" id='view-list'>
+			<div class='view-state-navigation mobile navbar-fixed-bottom navbar-default'>
+				<div class="container">
+		            <ul class="nav nav-tabs">
+						<li>
+							<a data-toggle='tab' href="#view-blank">Placeholder</a>
+						</li>
+						<li class='active'>
+							<a data-toggle='tab' href="#view-list">List</a>
+						</li>
+						<li>
+							<a data-toggle='tab' href="#view-blocks">Tree</a>
+						</li>
+					</ul>
+				</div>
 			</div>
-			<div class="view-state mobile" id='view-blocks'>
+			<div class="tab-content">
+				<div role='tabpanel' class="view-state mobile" id='view-blank'>
+				</div>
+				<div role='tabpanel' class=" tab-pane view-state mobile active" id='view-list'>
+				</div>
+				<div role='tabpanel' class="view-state mobile" id='view-blocks'>
+				</div>
 			</div>
 		</section>
 		<footer>

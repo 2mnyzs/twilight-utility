@@ -3,20 +3,16 @@ body {
     background-color: lavender;
 }
 .tech-color-yellow{
-	border: 2.5px solid #FFFF00 !important;
-	background-color: #FFFF00;
+	border: 2.5px solid #FFFF22 !important;
 }
 .tech-color-green{
-	border: 2.5px solid #00FF00 !important;
-	background-color: #00FF00;
+	border: 2.5px solid #44FF44 !important;
 }
 .tech-color-blue{
-	border: 2.5px solid #0000FF !important;
-	background-color: #0000FF;
+	border: 2.5px solid #4444FF !important;
 }
 .tech-color-red{
-	border: 2.5px solid #FF0000 !important;
-	background-color: #FF0000;
+	border: 2.5px solid #FF4444 !important;
 }
 .panel{
 	margin-bottom: 1%;
@@ -25,7 +21,27 @@ body {
 }
 .panel-heading{
 	cursor: pointer;
+	background-color: #DDDDDD !important;
 }
 .panel-body{
 	display: none;
+	background-color: #EEEEEE !important;
+}
+/*.view-state-navigation{
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}*/
+.view-state-navigation>.container{
+    margin-bottom: -5px;
+}
+.view-state-navigation>.container>.nav-tabs{
+    float: none;
+    display: inline-block;
+}
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:hover,
+.nav-tabs>li.active>a:focus {
+    background-color: #bbb;
 }

@@ -3,24 +3,28 @@
         "id":"0",
         "name":"Yellow",
         "hex":"#FFFF00",
+        "class":"tech-color-yellow",
         "description":"Economy"
     },
     {
         "id":"1",
         "name":"Green",
         "hex":"#00FF00",
+        "class":"tech-color-green",
         "description":"Utility"
     },
     {
         "id":"2",
         "name":"Blue",
         "hex":"#0000FF",
+        "class":"tech-color-blue",
         "description":"Movement"
     },
     {
         "id":"3",
         "name":"Red",
         "hex":"#FF0000",
+        "class":"tech-color-red",
         "description":"Combat"
     }
 ]
