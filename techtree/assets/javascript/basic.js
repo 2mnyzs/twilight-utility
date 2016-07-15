@@ -20,13 +20,20 @@ function createMainDisplay(colors,techs,races,expansions){
 			color = color.class;
 			var content = "<div class='panel panel-default'><div class='panel-heading "+color+"'><h3 class='panel-title'>"+tech.name;
 				content+= "</h3></div><div class='panel-body'>"+tech.description+"</div></div>";
-			$('#view-list').append(content);
+			$('#view-list-panel').append(content);
 		}
-		$('#view-list').on('click', '.panel-heading', function(event){
+		$('#view-list-panel').on('click', '.panel-heading', function(event){
 			$(this).siblings('.panel-body').toggle();
 			$(this).parents('.panel').siblings().find('.panel-body').hide();
 		});
-		
+        $('.tab-pane').on('swipeleft', function(event){
+            var leftTab = $(this).data('left-tab');
+            $('#'+leftTab).tab('show');
+        });
+        $('.tab-pane').on('swiperight', function(event){
+            var rightTab = $(this).data('right-tab');
+            $('#'+rightTab).tab('show');
+        });
 	}else{
 
 	}
