@@ -2,6 +2,7 @@
   {
     "id": 0,
     "name": "Enviro Compensator",
+    "name_short": "Enviro Comp",
     "description": "+1 production capacity of your Space Docks",
     "race__id": null,
     "race_cost": 0,
@@ -18,7 +19,8 @@
   },
   {
     "id": 1,
-    "name": "TransFabrication",
+    "name": "Trans Fabrication",
+    "name_short": "Trans Fab",
     "description": "May scuttle units at the start of the Produce Units step. Each non-fighter\/non-ground force unit you scuttle will provide +1 trade good. Units scuttled may not be reproduced the same turn.",
     "race__id": null,
     "race_cost": 0,
@@ -27,7 +29,7 @@
       
     ],
     "post_requisite__ids": [
-      27
+
     ],
     "all_pre_requisites_req": null,
     "expansion__id": 0
@@ -35,6 +37,7 @@
   {
     "id": 2,
     "name": "Sarween Tools",
+    "name_short": "Sarween",
     "description": "Whenever you produce units at any Space Dock, you now receive +1 resource with which to produce.",
     "race__id": null,
     "race_cost": 0,
@@ -44,7 +47,7 @@
     ],
     "post_requisite__ids": [
       3,
-      5
+      27
     ],
     "all_pre_requisites_req": false,
     "expansion__id": null
@@ -52,6 +55,7 @@
   {
     "id": 3,
     "name": "Micro Technology",
+    "name_short": "Micro Tech",
     "description": "When you receive Trade Goods from your trade agreements, you now receive +1 Trade Good for each active Trade Agreement.",
     "race__id": null,
     "race_cost": 0,
@@ -62,6 +66,7 @@
     ],
     "post_requisite__ids": [
       4,
+      5,
       10
     ],
     "all_pre_requisites_req": false,
@@ -70,6 +75,7 @@
   {
     "id": 4,
     "name": "Integrated Economy",
+    "name_short": "Int. Econ",
     "description": "When producing units, place them in any activated adj. system that is empty or friendly. Place PDS and Ground Forces on any friendly planet in range.",
     "race__id": null,
     "race_cost": 0,
@@ -87,12 +93,13 @@
   {
     "id": 5,
     "name": "Nano Technology",
+    "name_short": "Nano Tech",
     "description": "Dreadnaughts and War Suns can't be targeted by Action Cards. When you claim a planet, you gain it refreshed.",
     "race__id": null,
     "race_cost": 0,
     "color__id": 0,
     "pre_requisite__ids": [
-      2
+      3
     ],
     "post_requisite__ids": [
       
@@ -103,6 +110,7 @@
   {
     "id": 6,
     "name": "Graviton Laser System",
+    "name_short": "Graviton Lasers",
     "description": "PDS get one re-roll for each missed combat roll.",
     "race__id": null,
     "race_cost": 0,
@@ -119,6 +127,7 @@
   {
     "id": 7,
     "name": "Transit Diodes",
+    "name_short": "Transit Diodes",
     "description": "As an action, you may spend 1 Command Counter from your Strategic Allocation to immediately move up to 4 Ground Forces to a planet you control.",
     "race__id": null,
     "race_cost": 0,
@@ -136,6 +145,7 @@
   {
     "id": 8,
     "name": "Stasis Capsules",
+    "name_short": "Stasis Capsules",
     "description": "Cruisers and Dreadnaughts can carry one Ground Force.",
     "race__id": null,
     "race_cost": 0,
@@ -154,6 +164,7 @@
   {
     "id": 9,
     "name": "Cybernetics",
+    "name_short": "Cybernetics",
     "description": "Fighters receive +1 on all combat rolls.",
     "race__id": null,
     "race_cost": 0,
@@ -173,6 +184,7 @@
   {
     "id": 10,
     "name": "Neural Motivator",
+    "name_short": "Neural Motivator",
     "description": "Draw one extra Action Card during each Status Phase.",
     "race__id": null,
     "race_cost": 0,
@@ -192,6 +204,7 @@
   {
     "id": 11,
     "name": "Neutral Computing",
+    "name_short": "Neutral Computing",
     "description": "Your cost to purchase new Technologies is reduced by 2.",
     "race__id": null,
     "race_cost": 0,
@@ -208,6 +221,7 @@
   {
     "id": 12,
     "name": "Gen Synthesis",
+    "name_short": "Gen Synth",
     "description": "Ground Forces receive +1 during Invasion Combat. When destroyed, roll +5 to return to home system.",
     "race__id": null,
     "race_cost": 0,
@@ -224,6 +238,7 @@
   {
     "id": 13,
     "name": "Dacxive Animators",
+    "name_short": "Dax Animators",
     "description": "If you win an Invasion Combat, place one Ground Force for every force lost (both sides, on a role +6) on the planet from your reinforcements.",
     "race__id": null,
     "race_cost": 0,
@@ -241,6 +256,7 @@
   {
     "id": 14,
     "name": "Hyper Metabolism",
+    "name_short": "Hyper Metabolism",
     "description": "During each Status Phase, gain 1 additional Command Counter. Before drawing an Action Card, you may discard 1 and draw a new one.",
     "race__id": null,
     "race_cost": 0,
@@ -257,6 +273,7 @@
   {
     "id": 15,
     "name": "X-89 Bacterial Weapon",
+    "name_short": "X-89",
     "description": "Dreadnaughts or War Sun units may now immediately destroy all enemy Ground Forces on the planet, then discard all of your Action Cards.",
     "race__id": null,
     "race_cost": 0,
@@ -273,6 +290,7 @@
   {
     "id": 16,
     "name": "Antimass Deflectors",
+    "name_short": "Antimass Deflectors",
     "description": "All ships may pass through asteroid fields, but can not stop in one.",
     "race__id": null,
     "race_cost": 0,
@@ -291,6 +309,7 @@
   {
     "id": 17,
     "name": "Gravity Drive",
+    "name_short": "Gravity Drive",
     "description": "Don't roll when moving out of a Gravity Rift. When ships begin movement adjacent to a Gravity Rift or Wormhole, they receive +1 movement.",
     "race__id": null,
     "race_cost": 0,
@@ -307,6 +326,7 @@
   {
     "id": 18,
     "name": "XRD Transporters",
+    "name_short": "XRD",
     "description": "Carriers receive +1 movement.",
     "race__id": null,
     "race_cost": 0,
@@ -325,6 +345,7 @@
   {
     "id": 19,
     "name": "Maneuvering Jets",
+    "name_short": "Maneuvering Jets",
     "description": "Opponents receive -1 on all PDS rolls, -2 if from an adjacent system.",
     "race__id": null,
     "race_cost": 0,
@@ -341,6 +362,7 @@
   {
     "id": 20,
     "name": "Type IV Drive",
+    "name_short": "T-IV Drive",
     "description": "Cruisers and Dreadnaughts receive +1 movement.",
     "race__id": null,
     "race_cost": 0,
@@ -358,6 +380,7 @@
   {
     "id": 21,
     "name": "Advanced Fighters",
+    "name_short": "Adv Fighters",
     "description": "Your Fighters may now move independently with a movement of 2 and receive +1 on all combat rolls. Independent fighters count towards fleet supply.",
     "race__id": null,
     "race_cost": 0,
@@ -374,6 +397,7 @@
   {
     "id": 22,
     "name": "Fleet Logistics",
+    "name_short": "Fleet Logi",
     "description": "When taking a Tactical Action, you may now take 2 Tactical Actions, one after the other, before your turn ends.",
     "race__id": null,
     "race_cost": 0,
@@ -390,6 +414,7 @@
   {
     "id": 23,
     "name": "Light Wave Deflector",
+    "name_short": "Light Wave",
     "description": "All ships may move through systems containing enemy ships and continue their movement to the activated system.",
     "race__id": null,
     "race_cost": 0,
@@ -407,6 +432,7 @@
   {
     "id": 24,
     "name": "Hylar V Assault Laser",
+    "name_short": "Hylar V",
     "description": "Cruisers and Destroyers receive +1 in all combat rolls.",
     "race__id": null,
     "race_cost": 0,
@@ -424,6 +450,7 @@
   {
     "id": 25,
     "name": "Deep Space Cannon",
+    "name_short": "Deep Space Cannon",
     "description": "Enemy fleets in adjacent systems are now in range of your PDS.",
     "race__id": null,
     "race_cost": 0,
@@ -443,6 +470,7 @@
   {
     "id": 26,
     "name": "Duranium Armor",
+    "name_short": "Duranium",
     "description": "At the end of each round of combat, you may repair 1 of your damaged units in the battle.",
     "race__id": null,
     "race_cost": 0,
@@ -459,6 +487,7 @@
   {
     "id": 27,
     "name": "War Sun",
+    "name_short": "War Sun",
     "description": "You are now allowed to produce War Sun units.",
     "race__id": null,
     "race_cost": 0,
@@ -476,6 +505,7 @@
   {
     "id": 28,
     "name": "Graviton Negator",
+    "name_short": "Graviton Negator",
     "description": "Dreadnaughts may bombard planets with PDS. Fighters may participate in Invasion Combat(return to space after combat).",
     "race__id": null,
     "race_cost": 0,
@@ -493,6 +523,7 @@
   {
     "id": 29,
     "name": "Automated Defense Turrets",
+    "name_short": "ADT",
     "description": "Destroyers receive +2 and roll an additional die for Anti-Fighter Barrage.",
     "race__id": null,
     "race_cost": 0,
@@ -509,6 +540,7 @@
   {
     "id": 30,
     "name": "Magan Defense Grid",
+    "name_short": "Magan Defense",
     "description": "PDS receive +1 on all combat rolls. Ground Forces with PDS get +1 on all combat rolls during Invasion Combat.",
     "race__id": null,
     "race_cost": 0,
@@ -525,6 +557,7 @@
   {
     "id": 31,
     "name": "Assault Cannon",
+    "name_short": "Assault Cannon",
     "description": "Dreadnaughts get on free shot before any Space Battle.",
     "race__id": null,
     "race_cost": 0,

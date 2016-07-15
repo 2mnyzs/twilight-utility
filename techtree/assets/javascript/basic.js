@@ -14,26 +14,72 @@ function createMainDisplay(colors,techs,races,expansions){
 
 	if(mobile_view){
 		var view_state = 'list'; //maybe kill me too
+		// BEGIN LIST VIEW
 		for(var index in techs.techs){
 			var tech = techs.techs[index];
 			var color = tech.getColor(colors);
-			color = color.class;
-			var content = "<div class='panel panel-default'><div class='panel-heading "+color+"'><h3 class='panel-title'>"+tech.name;
-				content+= "</h3></div><div class='panel-body'>"+tech.description+"</div></div>";
+			color = color.border_class;
+			var content = "<div class='panel panel-default "+color+"'><div class='panel-heading'><h3 class='panel-title'>"+tech.name;
+				content+= "</h3></div><div class='list panel-body'>"+tech.description+"</div></div>";
 			$('#view-list-panel').append(content);
 		}
 		$('#view-list-panel').on('click', '.panel-heading', function(event){
 			$(this).siblings('.panel-body').toggle();
 			$(this).parents('.panel').siblings().find('.panel-body').hide();
 		});
-        $('.tab-pane').on('swipeleft', function(event){
-            var leftTab = $(this).data('left-tab');
-            $('#'+leftTab).tab('show');
-        });
-        $('.tab-pane').on('swiperight', function(event){
+		// END LIST VIEW
+
+		// BEGIN TREE VIEW
+		var tree = function(){
+
+			function addBranches(tech__id){
+				if(tech__id!=null){
+					var tech = techs.getTechById(tech__id);
+					var children = tech.getChildren();
+				}else{
+					var children = techs.getRoots();
+				}
+				var width_class = "col-xs-"+(12/children.length);
+				var row = "<div class='branches row'>";
+				for(var index in children){
+					var child = children[index];
+					var color = child.getColor(colors);
+					color = color.background_class;
+					var name = children.length > 3 ? child.name_short : child.name;
+					var req = child.all_pre_requisites_req == true ? 'multiple-required' : '';
+					row += "<div class='"+width_class+" "+color+" "+req+" branch' data-tech-id='"+child.id+"'>"+name+"</div>";
+				}
+				row+="</div>";
+				$('#tree-root').append(row);
+			}
+			addBranches();
+
+			return {
+				addBranches: addBranches
+			}
+		}
+		tree = tree();
+
+
+		$('#view-tree-panel').on('click', '.branch', function(event){
+			$(this).parent().nextAll().remove();
+			$(this).addClass('path').siblings().removeClass('path');
+
+			var tech__id = $(this).data('tech-id');
+			tree.addBranches(tech__id);
+		});
+		// END TREE VIEW
+
+		// BEGIN NAVIGATION 
+        $('.tab-pane').on('swipeleft swipeleftdown swipeleftup', function(event){
             var rightTab = $(this).data('right-tab');
             $('#'+rightTab).tab('show');
         });
+        $('.tab-pane').on('swiperight swiperightdown swiperightup', function(event){
+            var leftTab = $(this).data('left-tab');
+            $('#'+leftTab).tab('show');
+        });
+        // END NAVIGATION
 	}else{
 
 	}
@@ -93,10 +139,13 @@ function initializeData(){
 			}
 			return false;
 		}
+
+
 		//tech object closure
 		var tech = function (data){
 			var id = data.id,
 				name = data.name,
+				name_short = data.name_short,
 				description = data.description,
 				race__id = data.race__id,
 				race_cost = data.race_cost,
@@ -106,26 +155,40 @@ function initializeData(){
 				all_pre_requisites_req = data.all_pre_requisites_req,
 				expansion__id = data.expansion__id;
 
+			function getParents(){
+				var parents = [];
+				for(var index in pre_requisite__ids){
+					parents.push(getTechById(pre_requisite__ids[index]));
+				}
+				return parents;
+			}
+
+			function getChildren(){
+				var children = [];
+				for(var index in post_requisite__ids){
+					children.push(getTechById(post_requisite__ids[index]));
+				}
+				return children;
+			}
+
 			return {
 				id: id,
 				name: name,
+				name_short: name_short,
 				description: description,
 				race_cost: race_cost,
 				all_pre_requisites_req: all_pre_requisites_req,
 				color__id: color__id,
-				getChildren: function(){
-					var children = [];
-					for(var index in pre_requisite__ids){
-						children.push(getTechById(pre_requisite__ids[index]));
-					}
-					return children;
+				//functions below
+				getChildren: getChildren,
+				getParents: getParents,
+				hasChildren: function(){
+					var children = getChildren();
+					return children.length ? true : false;
 				},
-				getParents: function(){
-					var parents = [];
-					for(var index in post_requisite__ids){
-						parents.push(getTechById(post_requisite__ids[index]));
-					}
-					return parents;
+				hasParents: function(){
+					var parents = getParents();
+					return parents.length ? true : false;
 				},
 				getColor: function(colors){
 					return colors.getColorById(color__id);
@@ -147,13 +210,33 @@ function initializeData(){
 			techs: techs,
 			getTechById: getTechById,
 			getTechsByColor: function(color__id){
+				var techsOfColor = [];
 				for(var index in techs){
-					var techsOfColor = [];
 					if(techs[index].color__id == color__id){
-						techsOfColor.push(index);
+						techsOfColor.push(techs[index]);
 					}
-					return techsOfColor;
 				}
+				return techsOfColor;
+			},
+			//get techs that have no parents(prereqs)
+			getRoots: function(){
+				var roots = [];
+				for(var index in techs){
+					if(techs[index].getParents().length == 0){
+						roots.push(techs[index]);
+					}
+				}
+				return roots;
+			},
+			//get techs that have no children(postreqs)
+			getLeafs: function(){
+				var leafs = [];
+				for(var index in techs){
+					if(techs[index].getChildren().length == 0){
+						leafs.push(techs[index]);
+					}
+				}
+				return leafs;
 			}
 		};
 	}

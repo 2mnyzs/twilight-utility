@@ -11,12 +11,11 @@
         <link rel="shortcut icon" href="/assets/misc/images/favicon.png" type="image/png">
 
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.css">
         <link rel="stylesheet" href="assets/css/basic.css">
 	</head>
 	<body>
 		<header id='navbar_placeholder'></header>
-		<section class='container text-center'>
+		<section class='container text-center' id='main-container'>
 			<div class='view-state-navigation mobile navbar-fixed-bottom navbar-default'>
 				<div class="container">
 		            <ul class="nav nav-tabs" id=''>
@@ -27,29 +26,29 @@
 							<a data-toggle='tab' href="#view-list-panel" id='view-list-tab'>List</a>
 						</li>
 						<li>
-							<a data-toggle='tab' href="#view-blocks-panel" id='view-blocks-tab'>Tree</a>
+							<a data-toggle='tab' href="#view-tree-panel" id='view-tree-tab'>Tree</a>
 						</li>
 					</ul>
 				</div>
 			</div>
 			<div class="tab-content">
-				<div role='tabpanel' class="tab-pane view-state mobile" id='view-blank-panel' data-left-tab='view-blocks-tab' data-right-tab='view-list-tab'>
+				<div role='tabpanel' class="tab-pane view-state mobile" id='view-blank-panel' data-left-tab='view-tree-tab' data-right-tab='view-list-tab'>
 					Test
 				</div>
-				<div role='tabpanel' class="tab-pane view-state mobile active" id='view-list-panel' data-left-tab='view-blank-tab' data-right-tab='view-blocks-tab'>
+				<div role='tabpanel' class="tab-pane view-state mobile active" id='view-list-panel' data-left-tab='view-blank-tab' data-right-tab='view-tree-tab'>
 				</div>
-				<div role='tabpanel' class="tab-pane view-state mobile" id='view-blocks-panel' data-left-tab='view-list-tab' data-right-tab='view-blank-tab'>
-					Test
+				<div role='tabpanel' class="tab-pane view-state mobile" id='view-tree-panel' data-left-tab='view-list-tab' data-right-tab='view-blank-tab'>
+					<div class="tree container" id="tree-root"></div>
 				</div>
 			</div>
 		</section>
 		<footer>
 			<script src= "https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-			<script src= "https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.js"></script>
     		<script src= "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
 			<script src= "assets/javascript/underscore.js"></script>
-			<script src= "assets/javascript/basic.js"></script>
+			<script src= "assets/javascript/jgestures.min.js"></script> <!-- provides a bunch of event for mobile devices(swipe, pinch, etc) -->
             <script src= "/assets/javascript/basic.js"></script> <!-- Login/Logout -->
+			<script src= "assets/javascript/basic.js"></script>
 		</footer>
 	</body>
 </html>
