@@ -70,7 +70,7 @@ function createMainDisplay(colors,techs,races,expansions){
 		});
 		// END TREE VIEW
 
-		// BEGIN NAVIGATION 
+		// BEGIN NAVIGATION
         $('.tab-pane').on('swipeleft swipeleftdown swipeleftup', function(event){
             var rightTab = $(this).data('right-tab');
             $('#'+rightTab).tab('show');
@@ -129,7 +129,12 @@ function initializeData(){
 
 	var techs = function(data){
 		var techs = [];
-		var filtered_techs = [];
+        var filter_color = false,
+            filter_color__id = null;
+        //assume all expansions are owned
+        var filter_unowned_expansions = [];
+        //assume no techs are owned
+        var filter_owned_techs = [];
 
 		function getTechById(id){
 			for(var index in techs){
@@ -140,6 +145,9 @@ function initializeData(){
 			return false;
 		}
 
+        function getFilteredTechs(){
+            //stub
+        }
 
 		//tech object closure
 		var tech = function (data){
@@ -207,16 +215,34 @@ function initializeData(){
 			techs.push(tmp);
 		}
 		return {
-			techs: techs,
+			techs: getFilteredTechs,
 			getTechById: getTechById,
-			getTechsByColor: function(color__id){
-				var techsOfColor = [];
-				for(var index in techs){
-					if(techs[index].color__id == color__id){
-						techsOfColor.push(techs[index]);
-					}
-				}
-				return techsOfColor;
+			setColorFilter: function(color__id){
+				if(color__id){
+                    filter_color = true;
+                    filter_color__id = color__id;
+                }else{
+                    filter_color = false;
+                    filter_color__id = null;
+                }
+			},
+			toggleTechOwnership: function(tech__id){
+                if(tech__id){
+                    if(filter_owned_techs.indexOf(tech__id) != -1){
+                        filter_owned_techs.push(tech__id);
+                    }else{
+                        filter_owned_techs.remove(filter_owned_techs.indexOf(tech__id), 1);
+                    }
+                }
+			},
+			toggleExpansionOwnership: function(expansion__id){
+                if(expansion__id){
+                    if(filter_unowned_expansions.indexOf(expansion__id) != -1){
+                        filter_unowned_expansions.push(expansion__id);
+                    }else{
+                        filter_unowned_expansions.remove(filter_unowned_expansions.indexOf(expansion__id), 1);
+                    }
+                }
 			},
 			//get techs that have no parents(prereqs)
 			getRoots: function(){
@@ -240,6 +266,7 @@ function initializeData(){
 			}
 		};
 	}
+    // I'm not good(yet), added a web.config file so that JSON files should be supported now
 	var d1_colors = $.Deferred(),
 		d2_techs = $.Deferred(),
 		d3_races = $.Deferred(),
@@ -263,4 +290,5 @@ function initializeData(){
 		expansions = expansions(data);
 		d4_expansions.resolve(expansions);
 	});
+
 }
