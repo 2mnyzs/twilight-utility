@@ -8,25 +8,31 @@ $(function(){
 	initializeData();
 });
 
-function createMainDisplay(colors,techs,races,expansions){
+function createMainDisplay(colors,techs_controller,races,expansions){
 	var mobile_view = $(window).width() < 992 ? true : false;
-    mobile_view = true; //please don't forget to kill me
+	mobile_view = true; //please don't forget to kill me
 
 	if(mobile_view){
 		var view_state = 'list'; //maybe kill me too
 		// BEGIN LIST VIEW
-		for(var index in techs.techs){
-			var tech = techs.techs[index];
-			var color = tech.getColor(colors);
-			color = color.border_class;
-			var content = "<div class='panel panel-default "+color+"'><div class='panel-heading'><h3 class='panel-title'>"+tech.name;
-				content+= "</h3></div><div class='list panel-body'>"+tech.description+"</div></div>";
-			$('#view-list-panel').append(content);
+		function refreshListView(){
+			$('#view-list-panel').html('');
+
+			var techs = techs_controller.getTechs();
+			for(var index in techs){
+				var tech = techs[index];
+				var color = tech.getColor(colors);
+				color = color.border_class;
+				var content = "<div class='panel panel-default "+color+"'><div class='panel-heading'><h3 class='panel-title'>"+tech.name;
+					content+= "</h3></div><div class='list panel-body'>"+tech.description+"</div></div>";
+				$('#view-list-panel').append(content);
+			}
+			$('#view-list-panel').on('click', '.panel-heading', function(event){
+				$(this).siblings('.panel-body').toggle();
+				$(this).parents('.panel').siblings().find('.panel-body').hide();
+			});
 		}
-		$('#view-list-panel').on('click', '.panel-heading', function(event){
-			$(this).siblings('.panel-body').toggle();
-			$(this).parents('.panel').siblings().find('.panel-body').hide();
-		});
+		refreshListView();
 		// END LIST VIEW
 
 		// BEGIN TREE VIEW
@@ -34,10 +40,10 @@ function createMainDisplay(colors,techs,races,expansions){
 
 			function addBranches(tech__id){
 				if(tech__id!=null){
-					var tech = techs.getTechById(tech__id);
+					var tech = techs_controller.getTechById(tech__id);
 					var children = tech.getChildren();
 				}else{
-					var children = techs.getRoots();
+					var children = techs_controller.getRoots();
 				}
 				var width_class = "col-xs-"+(12/children.length);
 				var row = "<div class='branches row'>";
@@ -71,15 +77,49 @@ function createMainDisplay(colors,techs,races,expansions){
 		// END TREE VIEW
 
 		// BEGIN NAVIGATION
-        $('.tab-pane').on('swipeleft swipeleftdown swipeleftup', function(event){
-            var rightTab = $(this).data('right-tab');
-            $('#'+rightTab).tab('show');
-        });
-        $('.tab-pane').on('swiperight swiperightdown swiperightup', function(event){
-            var leftTab = $(this).data('left-tab');
-            $('#'+leftTab).tab('show');
-        });
-        // END NAVIGATION
+		$('.tab-pane').on('swipeleft swipeleftdown swipeleftup', function(event){
+			var rightTab = $(this).data('right-tab');
+			$('#'+rightTab).tab('show');
+		});
+		$('.tab-pane').on('swiperight swiperightdown swiperightup', function(event){
+			var leftTab = $(this).data('left-tab');
+			$('#'+leftTab).tab('show');
+		});
+		// END NAVIGATION
+
+		// BEGIN FILTERING
+
+		// COLORS
+		$.each(colors.getColors(), function(){
+			$('#color-buttons').append("<button type='button' class='btn "+this.background_class+"' data-color-id='"+this.id+"'>"+this.name+"</button>");
+		});
+		$('#color-buttons').on('click', 'button', function(event){
+			var color__id = $(this).data('color-id');
+
+			//if this color is the sole remaining color that hasn't been filtered, clera the filter
+			if($('#color-buttons>.btn:not(.filter-me)').length == 1){
+				techs_controller.clearColorFilter();
+				$('#color-buttons>.btn.filter-me').removeClass('filter-me');
+				refreshListView();
+			}else{
+				techs_controller.toggleColorFilter(color__id);
+				$(this).toggleClass('filter-me');
+				refreshListView();
+			}
+		});
+
+		// Expansions
+		$.each(expansions.getExpansions(), function(){
+			$('#expansion-buttons').append("<button type='button' class='btn btn-default' data-expansion-id='"+this.id+"'>"+this.name+"</button>");
+		});
+		$('#expansion-buttons').on('click', 'button', function(event){
+			var expansion__id = $(this).data('color-id');
+
+			techs_controller.toggleExpansionOwnership(expansion__id);
+			$(this).toggleClass('filter-me');
+			refreshListView();
+		});
+		// END FILTERING
 	}else{
 
 	}
@@ -90,6 +130,9 @@ function initializeData(){
 	var colors = function(data){
 		var colors = data;
 		return {
+			getColors: function(){
+				return colors;
+			},
 			getColorById: function(id){
 				for(var index in colors){
 					if(colors[index].id == id){
@@ -103,6 +146,9 @@ function initializeData(){
 	var races = function(data){
 		var races = data;
 		return {
+			getRaces: function(){
+				return races;
+			},
 			getRaceById: function(id){
 				for(var index in races){
 					if(races[index].id == id){
@@ -116,6 +162,9 @@ function initializeData(){
 	var expansions = function(data){
 		var expansions = data;
 		return {
+			getExpansions: function(){
+				return expansions;
+			},
 			getExpansionById: function(id){
 				for(var index in expansions){
 					if(expansions[index].id == id){
@@ -129,12 +178,9 @@ function initializeData(){
 
 	var techs = function(data){
 		var techs = [];
-        var filter_color = false,
-            filter_color__id = null;
-        //assume all expansions are owned
-        var filter_unowned_expansions = [];
-        //assume no techs are owned
-        var filter_owned_techs = [];
+		var filter_colors = [];
+		var filter_expansions = [];
+		var filter_ownership = [];
 
 		function getTechById(id){
 			for(var index in techs){
@@ -145,9 +191,37 @@ function initializeData(){
 			return false;
 		}
 
-        function getFilteredTechs(){
-            //stub
-        }
+		function getFilteredTechs(){
+			//make copy of master tech array
+			var filtered_techs = techs.slice();
+
+			//run color filter
+			if(filter_colors.length){
+				for(var i = filtered_techs.length - 1; i >=0; i--){
+					var tech_color__id = filtered_techs[i].color__id;
+					if(filter_colors.indexOf(tech_color__id) != -1){
+						filtered_techs.splice(i, 1);
+					}
+				}
+			}
+			if(filter_expansions.length){
+				for( var index in filtered_techs){
+					var expansion__id = filtered_techs[index].expansion__id;
+					if(filter_expansions.indexOf(expansion__id) != -1){
+						filtered_techs.splice(index, 1);
+					}
+				}
+			}
+			if(filter_ownership.length){
+				for( var index in filtered_techs){
+					var tech__id = filtered_techs[index].id;
+					if(filter_ownership.indexOf(tech__id) != -1){
+						filtered_techs.splice(index, 1);
+					}
+				}
+			}
+			return filtered_techs;
+		}
 
 		//tech object closure
 		var tech = function (data){
@@ -186,7 +260,9 @@ function initializeData(){
 				description: description,
 				race_cost: race_cost,
 				all_pre_requisites_req: all_pre_requisites_req,
+				race__id: race__id,
 				color__id: color__id,
+				expansion__id: expansion__id,
 				//functions below
 				getChildren: getChildren,
 				getParents: getParents,
@@ -215,34 +291,37 @@ function initializeData(){
 			techs.push(tmp);
 		}
 		return {
-			techs: getFilteredTechs,
+			getTechs: getFilteredTechs,
 			getTechById: getTechById,
-			setColorFilter: function(color__id){
-				if(color__id){
-                    filter_color = true;
-                    filter_color__id = color__id;
-                }else{
-                    filter_color = false;
-                    filter_color__id = null;
-                }
+			toggleColorFilter: function(color__id){
+				if(isNumber(color__id)){
+					if(filter_colors.indexOf(color__id) == -1){
+						filter_colors.push(color__id);
+					}else{
+						filter_colors.splice(filter_colors.indexOf(color__id), 1);
+					}
+				}
+			},
+			clearColorFilter: function(){
+				filter_colors = [];
 			},
 			toggleTechOwnership: function(tech__id){
-                if(tech__id){
-                    if(filter_owned_techs.indexOf(tech__id) != -1){
-                        filter_owned_techs.push(tech__id);
-                    }else{
-                        filter_owned_techs.remove(filter_owned_techs.indexOf(tech__id), 1);
-                    }
-                }
+				if(isNumber(tech__id)){
+					if(filter_ownership.indexOf(tech__id) == -1){
+						filter_ownership.push(tech__id);
+					}else{
+						filter_ownership.splice(filter_ownership.indexOf(tech__id), 1);
+					}
+				}
 			},
 			toggleExpansionOwnership: function(expansion__id){
-                if(expansion__id){
-                    if(filter_unowned_expansions.indexOf(expansion__id) != -1){
-                        filter_unowned_expansions.push(expansion__id);
-                    }else{
-                        filter_unowned_expansions.remove(filter_unowned_expansions.indexOf(expansion__id), 1);
-                    }
-                }
+				if(isNumber(expansion__id)){
+					if(filter_expansions.indexOf(expansion__id) == -1){
+						filter_expansions.push(expansion__id);
+					}else{
+						filter_expansions.splice(filter_expansions.indexOf(expansion__id), 1);
+					}
+				}
 			},
 			//get techs that have no parents(prereqs)
 			getRoots: function(){
@@ -266,7 +345,7 @@ function initializeData(){
 			}
 		};
 	}
-    // I'm not good(yet), added a web.config file so that JSON files should be supported now
+	// I'm not good(yet), added a web.config file so that JSON files should be supported now
 	var d1_colors = $.Deferred(),
 		d2_techs = $.Deferred(),
 		d3_races = $.Deferred(),
@@ -279,8 +358,8 @@ function initializeData(){
 		d1_colors.resolve(colors);
 	});
 	$.getJSON("assets/data/techs.json", function(data){
-		techs = techs(data);
-		d2_techs.resolve(techs);
+		techs_controller = techs(data);
+		d2_techs.resolve(techs_controller);
 	});
 	$.getJSON("assets/data/races.json", function(data){
 		races = races(data);
@@ -291,4 +370,8 @@ function initializeData(){
 		d4_expansions.resolve(expansions);
 	});
 
+}
+
+function isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
 }

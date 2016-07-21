@@ -6,16 +6,20 @@ body {
 html {
     min-height: 100%;
 }
-.tech-background-yellow{
+.tech-background-yellow,
+.tech-background-yellow:focus{
     background-color: #FFFF77;
 }
-.tech-background-green{
+.tech-background-green,
+.tech-background-green:focus{
     background-color: #99FF99;
 }
-.tech-background-blue{
+.tech-background-blue,
+.tech-background-blue:focus{
     background-color: #9999FF;
 }
-.tech-background-red{
+.tech-background-red,
+.tech-background-red:focus{
     background-color: #FF9999;
 }
 .tech-border-yellow{
@@ -23,20 +27,32 @@ html {
     border-left: 2.5px solid #FFFF22;
     border-right: 2.5px solid #FFFF22;
 }
+.tech-border-yellow>.panel-heading{
+    background-color: #FFFFCC;
+}
 .tech-border-green{
     border-top: 2.5px solid #44FF44;
     border-left: 2.5px solid #44FF44;
     border-right: 2.5px solid #44FF44;
+}
+.tech-border-green>.panel-heading{
+    background-color: #DDFFDD;
 }
 .tech-border-blue{
     border-top: 2.5px solid #4444FF;
     border-left: 2.5px solid #4444FF;
     border-right: 2.5px solid #4444FF;
 }
+.tech-border-blue>.panel-heading{
+    background-color: #DDDDFF;
+}
 .tech-border-red{
 	border-top: 2.5px solid #FF4444;
     border-left: 2.5px solid #FF4444;
     border-right: 2.5px solid #FF4444;
+}
+.tech-border-red>.panel-heading{
+    background-color: #FFDDDD;
 }
 .panel{
 	margin-bottom: 0px;
@@ -63,11 +79,10 @@ html {
 }
 .panel-heading{
 	cursor: pointer;
-	background-color: #DDDDDD !important;
 }
 .list.panel-body{
 	display: none;
-	background-color: #EEEEEE !important;
+	/*background-color: #DDDDDD !important;*/
 }
 .tab-pane{
     min-height: 250px;
@@ -94,7 +109,7 @@ html {
     border-bottom: 2px solid #999999;
 }
 .branch:not(.path){
-    opacity: .65;
+    opacity: .75;
 }
 .branch:not(:first-child){
     border-left: 2px solid #999999;
@@ -104,4 +119,12 @@ html {
 }
 .branch.multiple-required{
     border-top: 2px solid #ff5555;
+}
+
+/*Filtering*/
+#view-filter-panel .btn{
+    min-width: 64px;
+}
+#view-filter-panel .filter-me{
+    opacity: .75;
 }

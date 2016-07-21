@@ -20,7 +20,7 @@
 				<div class="container">
 		            <ul class="nav nav-tabs" id=''>
 						<li>
-							<a data-toggle='tab' href="#view-blank-panel" id='view-blank-tab'>Placeholder</a>
+							<a data-toggle='tab' href="#view-filter-panel" id='view-filter-tab'>Filters</a>
 						</li>
 						<li class='active'>
 							<a data-toggle='tab' href="#view-list-panel" id='view-list-tab'>List</a>
@@ -28,17 +28,35 @@
 						<li>
 							<a data-toggle='tab' href="#view-tree-panel" id='view-tree-tab'>Tree</a>
 						</li>
+						<li>
+							<a data-toggle='tab' href="#view-race-panel" id='view-race-tab'>Racial</a>
+						</li>
 					</ul>
 				</div>
 			</div>
 			<div class="tab-content">
-				<div role='tabpanel' class="tab-pane view-state mobile" id='view-blank-panel' data-left-tab='view-tree-tab' data-right-tab='view-list-tab'>
-					Test
+				<div role='tabpanel' class="tab-pane view-state mobile" id='view-filter-panel' data-left-tab='view-race-tab' data-right-tab='view-list-tab'>
+					<form id="colors-form">
+						<section class='form-group'>	
+							<label class='control-label'>Filter techs by color</label><br>
+							<div id='color-buttons' class="btn-group" role="group" aria-label="colors">
+							</div>
+						</section>
+					</form>
+					<form id="expansions-form">
+						<section class='form-group'>	
+							<label class='control-label'>Remove unused expansion techs</label>
+							<div id='expansion-buttons' class="btn-group" role="group" aria-label="colors">
+							</div>
+						</section>
+					</form>
 				</div>
-				<div role='tabpanel' class="tab-pane view-state mobile active" id='view-list-panel' data-left-tab='view-blank-tab' data-right-tab='view-tree-tab'>
+				<div role='tabpanel' class="tab-pane view-state mobile active" id='view-list-panel' data-left-tab='view-filter-tab' data-right-tab='view-tree-tab'>
 				</div>
-				<div role='tabpanel' class="tab-pane view-state mobile" id='view-tree-panel' data-left-tab='view-list-tab' data-right-tab='view-blank-tab'>
+				<div role='tabpanel' class="tab-pane view-state mobile" id='view-tree-panel' data-left-tab='view-list-tab' data-right-tab='view-race-tab'>
 					<div class="tree container" id="tree-root"></div>
+				</div>
+				<div role='tabpanel' class="tab-pane view-state mobile" id='view-race-panel' data-left-tab='view-tree-tab' data-right-tab='view-filter-tab'>
 				</div>
 			</div>
 		</section>
