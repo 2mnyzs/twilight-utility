@@ -23,15 +23,26 @@ function createMainDisplay(colors,techs_controller,races,expansions){
 				var tech = techs[index];
 				var color = tech.getColor(colors);
 				color = color.border_class;
-				var content = "<div class='panel panel-default "+color+"'><div class='panel-heading'><h3 class='panel-title'>"+tech.name;
-					content+= "</h3></div><div class='list panel-body'>"+tech.description+"</div></div>";
+				var owned = (techs_controller.isTechOwned(tech.id) ? 'owned' : '');
+				var content = "<div class='panel panel-default "+color+"'><div class='panel-heading'>";
+					content+= "<h3 class='col-xs-9 panel-title text-left'>"+tech.name+"</h3>";
+					content+= "<div class='col-xs-3 ownership "+owned+"' data-tech-id='"+tech.id+"'>";
+					content+= "<span class='glyphicon glyphicon-leaf'></span><span class='glyphicon glyphicon-fire'></span>";
+					content+= "</div><div class='clearfix'></div>";
+					content+= "</div><div class='list panel-body'>"+tech.description+"</div></div>";
 				$('#view-list-panel').append(content);
 			}
-			$('#view-list-panel').on('click', '.panel-heading', function(event){
-				$(this).siblings('.panel-body').toggle();
-				$(this).parents('.panel').siblings().find('.panel-body').hide();
-			});
 		}
+		$('#view-list-panel').on('click', '.panel-title', function(event){
+			$(this).parent().siblings('.panel-body').toggle();
+			$(this).parents('.panel').siblings().find('.panel-body').hide();
+		});
+		$('#view-list-panel').on('click', '.ownership', function(event){
+			$(this).toggleClass('owned');
+
+			var tech__id = $(this).data('tech-id');
+			techs_controller.toggleTechOwnership(tech__id);
+		});
 		refreshListView();
 		// END LIST VIEW
 
@@ -88,6 +99,14 @@ function createMainDisplay(colors,techs_controller,races,expansions){
 		// END NAVIGATION
 
 		// BEGIN FILTERING
+		$('#filter-buttons').on('click', 'button', function(event){
+			var setting = $(this).data('setting');
+
+			techs_controller.toggleFilters(setting);
+			$(this).removeClass('btn-default').addClass('btn-info');
+			$(this).siblings().addClass('btn-default').removeClass('btn-info');
+			refreshListView();
+		});
 
 		// COLORS
 		$.each(colors.getColors(), function(){
@@ -110,14 +129,43 @@ function createMainDisplay(colors,techs_controller,races,expansions){
 
 		// Expansions
 		$.each(expansions.getExpansions(), function(){
-			$('#expansion-buttons').append("<button type='button' class='btn btn-default' data-expansion-id='"+this.id+"'>"+this.name+"</button>");
+			$('#expansion-buttons').append("<button type='button' class='btn btn-info' data-expansion-id='"+this.id+"'>"+this.name+"</button>");
 		});
 		$('#expansion-buttons').on('click', 'button', function(event){
-			var expansion__id = $(this).data('color-id');
+			var expansion__id = $(this).data('expansion-id');
 
 			techs_controller.toggleExpansionOwnership(expansion__id);
-			$(this).toggleClass('filter-me');
+			$(this).toggleClass('btn-default btn-info');
 			refreshListView();
+		});
+
+		// Tech ownership
+		$('#ownership-buttons').on('click', 'button', function(event){
+			var filter_ownership_setting = $(this).data('ownership-setting');
+
+			techs_controller.setTechOwnershipFilterSetting(filter_ownership_setting);
+			$(this).removeClass('btn-default').addClass('btn-info');
+			$(this).siblings().addClass('btn-default').removeClass('btn-info');
+			refreshListView();
+
+			event.preventDefault();
+		});
+
+		// Tech depth
+		$('#depth-input-buttons').on('click', 'button', function(event){
+			var increment = $(this).data('increment');
+			var new_value = parseInt($('#depth-input').val() || 0) + parseInt(increment);
+			if(new_value > -1){
+				$('#depth-input').val(new_value).change();
+			}
+
+			event.preventDefault();
+		});
+		$('#depth-input').on('change', function(event){
+			techs_controller.setTechDepthFilterSetting($('#depth-input').val());
+			refreshListView();
+
+			event.preventDefault();
 		});
 		// END FILTERING
 	}else{
@@ -178,48 +226,128 @@ function initializeData(){
 
 	var techs = function(data){
 		var techs = [];
+		var filter_setting = true;
 		var filter_colors = [];
 		var filter_expansions = [];
 		var filter_ownership = [];
+		var filter_ownership_setting = "";
+		var filter_depths = [];
+		var filter_depth_setting = 20;
 
-		function getTechById(id){
+		function getTechById(tech__id){
 			for(var index in techs){
-				if(techs[index].id == id){
+				if(techs[index].id == tech__id){
 					return techs[index];
 				}
 			}
 			return false;
 		}
 
+		function isTechOwned(tech__id){
+			return (filter_ownership.indexOf(tech__id) != -1);
+		}
+
+		function getTechDepth(tech__id){
+			var tech = getTechById(tech__id);
+
+			var parents = tech.getParents();
+			if(isTechOwned(tech__id)){
+				return 0;
+			}else if(parents.length == 0){
+				return 1;
+			}else{
+				var parent_depths = [];
+				for(var i in parents){
+					parent_depths[i] = getTechDepth(parents[i].id);
+				}
+				if(tech.all_pre_requisites_req == true){
+					return parent_depths.reduce(function(a, b){
+						return a + b;
+					}) + 1;
+				}else{
+					return parent_depths.reduce(function(a, b) {
+						return Math.min(a,b);
+					}) + 1;
+				}
+			}
+		}
+
+		function refreshTechDepths(){
+			//filter_depths is a 1-1 mapping to techs
+			//all techs have a depth
+			//indexes in the array are tech__ids
+			filter_depths = [];
+			for(var i = techs.length - 1; i >=0; i--){
+				filter_depths[techs[i].id] = (getTechDepth(techs[i].id));
+			}
+		}
+
 		function getFilteredTechs(){
 			//make copy of master tech array
 			var filtered_techs = techs.slice();
 
-			//run color filter
-			if(filter_colors.length){
-				for(var i = filtered_techs.length - 1; i >=0; i--){
-					var tech_color__id = filtered_techs[i].color__id;
-					if(filter_colors.indexOf(tech_color__id) != -1){
-						filtered_techs.splice(i, 1);
+			if(filter_setting){
+				//run depth filter
+				//the depth of each tech should be set and refreshed when ownership changes
+				if(filter_depths.length){
+					for(var i = filtered_techs.length - 1; i >=0; i--){
+						var tech__id = filtered_techs[i].id;
+						if(filter_depths[tech__id] > filter_depth_setting){
+							filtered_techs.splice(i, 1);
+						}
 					}
 				}
-			}
-			if(filter_expansions.length){
-				for( var index in filtered_techs){
-					var expansion__id = filtered_techs[index].expansion__id;
-					if(filter_expansions.indexOf(expansion__id) != -1){
-						filtered_techs.splice(index, 1);
+
+				//run color filter
+				if(filter_colors.length){
+					for(var i = filtered_techs.length - 1; i >=0; i--){
+						var tech_color__id = filtered_techs[i].color__id;
+						if(filter_colors.indexOf(tech_color__id) != -1){
+							filtered_techs.splice(i, 1);
+						}
 					}
 				}
-			}
-			if(filter_ownership.length){
-				for( var index in filtered_techs){
-					var tech__id = filtered_techs[index].id;
-					if(filter_ownership.indexOf(tech__id) != -1){
-						filtered_techs.splice(index, 1);
+
+				//run expansion filter
+				if(filter_expansions.length){
+					for(var i = filtered_techs.length - 1; i >=0; i--){
+						var expansion__id = filtered_techs[i].expansion__id;
+						if(filter_expansions.indexOf(expansion__id) != -1){
+							filtered_techs.splice(i, 1);
+						}
 					}
 				}
+				//run ownership filter
+				switch(filter_ownership_setting){
+					case 'All':
+						//do nothing
+						break;
+					case 'Owned':
+						if(filter_ownership.length){
+							for(var i = filtered_techs.length - 1; i >=0; i--){
+								var tech__id = filtered_techs[i].id;
+								if(filter_ownership.indexOf(tech__id) == -1){
+									filtered_techs.splice(i, 1);
+								}
+							}
+						}
+						break;	
+					case 'Not Owned':
+						if(filter_ownership.length){
+							for(var i = filtered_techs.length - 1; i >=0; i--){
+								var tech__id = filtered_techs[i].id;
+								if(filter_ownership.indexOf(tech__id) != -1){
+									filtered_techs.splice(i, 1);
+								}
+							}
+						}
+						break;
+					default:
+						//do nothing
+						break;
+				}
 			}
+
 			return filtered_techs;
 		}
 
@@ -293,6 +421,7 @@ function initializeData(){
 		return {
 			getTechs: getFilteredTechs,
 			getTechById: getTechById,
+			getTechDepth: getTechDepth,
 			toggleColorFilter: function(color__id){
 				if(isNumber(color__id)){
 					if(filter_colors.indexOf(color__id) == -1){
@@ -305,6 +434,7 @@ function initializeData(){
 			clearColorFilter: function(){
 				filter_colors = [];
 			},
+			isTechOwned: isTechOwned,
 			toggleTechOwnership: function(tech__id){
 				if(isNumber(tech__id)){
 					if(filter_ownership.indexOf(tech__id) == -1){
@@ -313,6 +443,28 @@ function initializeData(){
 						filter_ownership.splice(filter_ownership.indexOf(tech__id), 1);
 					}
 				}
+				refreshTechDepths();
+			},
+			setTechOwnershipFilterSetting: function(filter_value){
+				//possible values: 'All'(default), 'Owned', 'Not Owned'
+				filter_ownership_setting = filter_value;
+			},
+			toggleFilters: function(setting){
+				//possible values: 'On', 'Off'
+				switch(setting){
+					case 'On':
+						filter_setting = true;
+						break;
+					case 'Off':
+						filter_setting = false;
+						break;
+					default:
+						break;
+				}
+			},
+			setTechDepthFilterSetting: function(filter_value){
+				//possible values: 0-10+
+				filter_depth_setting = filter_value;
 			},
 			toggleExpansionOwnership: function(expansion__id){
 				if(isNumber(expansion__id)){
@@ -353,19 +505,19 @@ function initializeData(){
 
 	$.when(d1_colors,d2_techs,d3_races,d4_expansions).then(createMainDisplay);
 
-	$.getJSON("assets/data/colors.json", function(data){
+	$.getJSON("/assets/data/colors.json", function(data){
 		colors = colors(data);
 		d1_colors.resolve(colors);
 	});
-	$.getJSON("assets/data/techs.json", function(data){
+	$.getJSON("/assets/data/techs.json", function(data){
 		techs_controller = techs(data);
 		d2_techs.resolve(techs_controller);
 	});
-	$.getJSON("assets/data/races.json", function(data){
+	$.getJSON("/assets/data/races.json", function(data){
 		races = races(data);
 		d3_races.resolve(races);
 	});
-	$.getJSON("assets/data/expansions.json", function(data){
+	$.getJSON("/assets/data/expansions.json", function(data){
 		expansions = expansions(data);
 		d4_expansions.resolve(expansions);
 	});

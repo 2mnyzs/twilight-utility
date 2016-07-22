@@ -13,15 +13,18 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-				<li>
+				<!-- <li>
 					<a href="/rules">Rules Reference</a>
-				</li>
+				</li> -->
 				<li>
 					<a href="/techtree">Tech Tree</a>
 				</li>
-				<li>
+                <li>
+                    <a href="/races">Race Overviews</a>
+                </li>
+				<!-- <li>
 					<a href="/planner">Game Planner</a>
-				</li>
+				</li> -->
 				<li>
 					<a href="/turntracker">Turn Tracking</a>
 				</li>

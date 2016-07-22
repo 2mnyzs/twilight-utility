@@ -76,9 +76,27 @@ html {
     }
 }
 .panel-title{
+    cursor: pointer;
+    padding: 10px 15px;
 }
 .panel-heading{
-	cursor: pointer;
+    padding: 0px 0px !important;
+}
+.ownership{
+    cursor: pointer;
+    padding: 10px 15px;
+}
+.ownership:not(.owned){
+    background-color: #ff8899;
+}
+.ownership:not(.owned)>.glyphicon-leaf{
+    display: none;
+}
+.ownership.owned{
+    background-color: #88ff88;
+}
+.ownership.owned>.glyphicon-fire{
+    display: none;
 }
 .list.panel-body{
 	display: none;

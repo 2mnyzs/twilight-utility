@@ -494,7 +494,7 @@
     "color__id": 3,
     "pre_requisite__ids": [
       25,
-      1
+      2
     ],
     "post_requisite__ids": [
       
