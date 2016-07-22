@@ -15,9 +15,9 @@
 	</head>
 	<body>
 		<header id='navbar_placeholder'></header>
-		<section class='container text-center' id='main-container'>
+		<section class='container' id='main-container'>
 			<div class='view-state-navigation mobile navbar-fixed-bottom navbar-default'>
-				<div class="container">
+				<div class="container text-center">
 		            <ul class="nav nav-tabs" id=''>
 						<li>
 							<a data-toggle='tab' href="#view-filter-panel" id='view-filter-tab'>Filters</a>
@@ -36,7 +36,7 @@
 			</div>
 			<div class="tab-content">
 				<div role='tabpanel' class="tab-pane view-state mobile" id='view-filter-panel' data-left-tab='view-race-tab' data-right-tab='view-list-tab'>
-					<div id="filter-form">
+					<div id="filter-form" class="filter-section">
 						<section class='form-group'>	
 							<label class='control-label'>Filters</label><br>
 							<div id='filter-buttons' class="btn-group" role="group" aria-label="colors">
@@ -45,21 +45,21 @@
 							</div>
 						</section>
 					</div>
-					<div id="colors-form">
+					<div id="colors-form" class="filter-section">
 						<section class='form-group'>	
 							<label class='control-label'>Filter techs by color</label><br>
 							<div id='color-buttons' class="btn-group" role="group" aria-label="colors">
 							</div>
 						</section>
 					</div>
-					<div id="expansions-form">
+					<div id="expansions-form" class="filter-section">
 						<section class='form-group'>	
 							<label class='control-label'>Filter out expansion-only techs</label><br>
 							<div id='expansion-buttons' class="btn-group" role="group" aria-label="expansions">
 							</div>
 						</section>
 					</div>
-					<div id="ownership-form">
+					<div id="ownership-form" class="filter-section">
 						<section class='form-group'>	
 							<label class='control-label'>Filter techs by ownership</label><br>
 							<div id='ownership-buttons' class="btn-group" role="group" aria-label="ownership">
@@ -69,7 +69,7 @@
 							</div>
 						</section>
 					</div>
-					<div id="depth-form">
+					<div id="depth-form" class="filter-section">
 						<section class='form-group'>	
 							<label class='control-label'>Filter by pre-req ownership</label><br>
 							<div class="input-group" role="group" aria-label="depth">
@@ -84,7 +84,7 @@
 				</div>
 				<div role='tabpanel' class="tab-pane view-state mobile active" id='view-list-panel' data-left-tab='view-filter-tab' data-right-tab='view-tree-tab'>
 				</div>
-				<div role='tabpanel' class="tab-pane view-state mobile" id='view-tree-panel' data-left-tab='view-list-tab' data-right-tab='view-race-tab'>
+				<div role='tabpanel' class="tab-pane view-state mobile text-center" id='view-tree-panel' data-left-tab='view-list-tab' data-right-tab='view-race-tab'>
 					<div class="tree container" id="tree-root"></div>
 				</div>
 				<div role='tabpanel' class="tab-pane view-state mobile" id='view-race-panel' data-left-tab='view-tree-tab' data-right-tab='view-filter-tab'>

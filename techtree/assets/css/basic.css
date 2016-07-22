@@ -140,9 +140,15 @@ html {
 }
 
 /*Filtering*/
+#view-filter-panel{
+    margin: 3%;
+}
 #view-filter-panel .btn{
     min-width: 64px;
 }
 #view-filter-panel .filter-me{
     opacity: .75;
+}
+.filter-section{
+    margin-bottom: 15px;
 }

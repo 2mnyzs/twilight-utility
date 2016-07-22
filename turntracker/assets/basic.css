@@ -137,7 +137,8 @@ body {
     cursor: pointer;
 }
 .color-bar{
-    width: 500px;
+    width: 100%;
+    max-width: 450px;
     text-align: center;
     height: 80px;
     border: 4px solid #4d1913;
